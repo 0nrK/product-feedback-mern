@@ -7,6 +7,8 @@ const cors = require('cors');
 const app = express()
 dotenv.config()
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
 app.use(cors())
 
 mongoose.connect(
@@ -17,39 +19,6 @@ mongoose.connect(
     }
 );
 
-app.get("/", async (req, res) => {
-    try {
-        const products = await Product.find()
-        res.status(200).json(products)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
-
-app.get("/product/:id", async (req, res) => {
-    try {
-        const post = await Product.findById(req.params.id)
-        res.status(200).json(post)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
-
-app.post("/addproduct", async (req, res) => {
-    try {
-
-        const newProduct = new Product({
-            productName: req.body.menuValues.productName,
-            productDesc: req.body.menuValues.productDesc,
-            productTags: req.body.menuValues.productTags
-        })
-        const savedProduct = await newProduct.save()
-
-        res.status(200).json(savedProduct)
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
 
 app.post("/addcomment", async (req, res) => {
     const comment = req.body.text
@@ -72,14 +41,8 @@ app.post("/addcomment", async (req, res) => {
     }
 })
 
-app.delete("/:id", async (req, res) => {
-    try {
-        const product = Product.findById(req.params.id)
-        await product.deleteOne()
-    } catch (err) {
-        res.status(500).json(err)
-    }
-})
+app.use("/post", require("./routes/postRoute.js"))
+app.use("/auth", require("./routes/authRoute.js"))
 
 app.listen(5000, () => {
     console.log("server is running")

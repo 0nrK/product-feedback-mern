@@ -15,6 +15,7 @@ const Header = ({ props, handleSort }) => {
 
 
 
+
     function handleChange(event) {
         setMenuValues(values => ({ ...values, [event.target.name]: event.target.value }))
         console.log(menuValues)
@@ -47,7 +48,7 @@ const Header = ({ props, handleSort }) => {
                     onClick={() => setSortMenu(!sortMenu)}
                     className="flex flex-row items-center    group cursor-pointer space-x-3">
                     <span className="hidden md:flex">Sort By:</span>
-                    <select defaultValue="Most Upvote" onChange={handleSort} className="p-2 px-3  bg-slate-800 rounded-md w-48 flex flex-col">
+                    <select defaultValue="Newest" onChange={handleSort} className="p-2 px-3  bg-slate-800 rounded-md w-48 flex flex-col">
                         <option value="Most Upvote" className="px-9 py-3 bg-slate-800 hover:bg-slate-700 text-gray-200 border-b border-gray-300">Most Upvotes</option>
                         <option value="Newest" className="px-9 py-3 bg-slate-800 hover:bg-slate-700 text-gray-200 border-b border-gray-300">Newest</option>
                         <option value="Oldest" className="px-9 py-3 bg-slate-800 hover:bg-slate-700 text-gray-200 border-b border-gray-300">Oldest</option>
@@ -60,7 +61,7 @@ const Header = ({ props, handleSort }) => {
                 </div>
             </div>
             {addMenu &&
-                <div className="text-white -mt-3 bg-slate-700 ">
+                <div className="text-white -mt-3 bg-slate-700">
                     <form
                         onSubmit={handleSubmit}
                         className="p-3 px-8  space-y-3 flex flex-col">

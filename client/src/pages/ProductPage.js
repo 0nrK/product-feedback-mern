@@ -17,13 +17,14 @@ const ProductPage = () => {
 
     useEffect(() => {
         async function getData() {
-            const res = await axios.get("http://localhost:5000/product/" + id)
+            const res = await axios.get("http://localhost:5000/post/" + id)
             setData(res.data)
             console.log(data)
             setLoading(false)
         }
         getData()
     }, [])
+
 
     return (
         <>
@@ -48,10 +49,12 @@ const ProductPage = () => {
 
                     {/* Comment Section */}
                     <div className="bg-red-50 mt-5 pb-8 border-b-2 rounded-lg shadow-lg space-y-5 ">
-                        <h2 className="text-2xl p-5 font-bold border-b-2">2 Comments</h2>
+                        <h2 className="text-2xl p-5 font-bold border-b-2">{data.comments.length} Comments</h2>
 
                         <div>
-                            <Comment props={data} />
+                            {data.comments.map((com) => {
+                                return <Comment props={data} />
+                            })}
 
                         </div>
 

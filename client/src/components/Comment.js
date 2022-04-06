@@ -2,7 +2,6 @@ import React from 'react'
 import Reply from './Reply'
 
 const Comment = ({ props }) => {
-    console.log(props);
     return (
         <div className="space-y-3  pt-8">
             <div className="flex flex-col mb-8">
@@ -22,7 +21,6 @@ const Comment = ({ props }) => {
                     <p className="ml-14 break-words text-gray-400">Officia ad amet sit exercitation ipsum Lorem cupidatat laborum et qui ut tempor. Amet nisi consequat esse amet ipsum officia fugiat ad duis. Cupidatat commodo nulla esse adipisicing duis consectetur et cillum consectetur est cillum nulla enim. Do voluptate proident ipsum cillum aliqua adipisicing consequat aliqua velit voluptate.</p>
                 </div>
             </div>
-            <Reply />
         </div>
     )
 }

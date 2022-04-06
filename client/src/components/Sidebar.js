@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { filterShowAll, filterBug, filterFeature, filterUI } from "../context/FilterActions"
+import { FilterContext } from '../context/FilterContext'
 
-const Sidebar = ({ handleFilter }) => {
+const Sidebar = () => {
 
-    const [filterBy, setFilterBy] = useState("")
-    const [active, setActive] = useState("All")
 
-    useEffect(() => {
-        handleFilter(filterBy)
-    }, [filterBy])
+    /* const handleFilter = (event) => {
+        setFilterBy(event)
+        if (filterBy === "UI") {
+            const filteredData = data.filter(post => post.productTags === "UI")
+            setData(() => filteredData)
+        } else if (filterBy === "Bug") {
+            const filteredData = data.filter(post => post.productTags === "Bug")
+            setData(() => filteredData)
+        } else if (filterBy === "Feature") {
+            const filteredData = data.filter(post => post.productTags === "Feature")
+            setData(() => filteredData)
+        }
+    } */
 
-    console.log(active);
+    const { dispatch } = useContext(FilterContext)
+
 
     return (
         <nav className="w-full">
             <div className=" md:h-80 md:space-y-5">
-                <div className="h-20 flex w-full  flex-row items-center px-5 justify-between md:static absolute top-0 
+                <div className="h-20 flex w-full rounded-lg  flex-row items-center px-5 justify-between md:static absolute top-0 
                 md:h-40
                  shadow-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
                     <span className="text-2xl font-bold">0nrk</span>
@@ -26,11 +38,11 @@ const Sidebar = ({ handleFilter }) => {
                 </div>
                 <div className="hidden md:space-y-3 md:block">
                     <div className="  shadow-xl h-50 p-7 space-x-5  bg-red-50 rounded-lg">
-                        <ul onChange={handleFilter} className="flex flex-row flex-wrap">
-                            <li onClick={() => setActive("All")} className="cursor-pointer font-bold bg-blue-800 text-white m-3 rounded-md py-3 px-5 ">All</li>
-                            <li onClick={() => setActive("UI")} className=" cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5">UI</li>
-                            <li onClick={() => setActive("Bug")} className="cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5 ">Bug</li>
-                            <li onClick={() => setActive("Feature")} className="cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5 ">Feature</li>
+                        <ul className="flex flex-row flex-wrap">
+                            <li onClick={() => dispatch(filterShowAll())} className="cursor-pointer font-bold bg-blue-800 text-white m-3 rounded-md py-3 px-5 ">All</li>
+                            <li onClick={() => dispatch(filterUI())} className=" cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5">UI</li>
+                            <li onClick={() => dispatch(filterBug())} className="cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5 ">Bug</li>
+                            <li onClick={() => dispatch(filterFeature())} className="cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5 ">Feature</li>
                         </ul>
                     </div>
                     <div className=" bg-red-50 shadow-xl rounded-lg py-8 px-6">

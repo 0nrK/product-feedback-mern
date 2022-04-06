@@ -4,6 +4,7 @@ import Product from '../components/Product'
 import Products from '../components/Products'
 import Sidebar from '../components/Sidebar'
 import axios from "axios"
+import { useDispatch, useSelector } from 'react-redux'
 
 const Home = () => {
 
@@ -12,21 +13,14 @@ const Home = () => {
     const [sortBy, setSortBy] = useState("Most Upvotes")
     const [filterBy, setFilterBy] = useState("")
 
+
+    const postsData = useSelector(state => state.posts)
+
     useEffect(() => {
 
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const res = await axios.get('http://localhost:5000');
-                setData(res.data)
-                console.log(data)
-            } catch (error) {
-                console.error(error);
-            }
-            setLoading(false);
-        }
 
-        fetchData();
+        setData(() => postsData.data)
+        setLoading(() => false)
     }, [])
 
     const handleSort = (e) => {
@@ -34,30 +28,21 @@ const Home = () => {
         setSortBy(e.target.value)
         if (sortBy === "Newest") {
             const sortedPosts = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-            setData(sortedPosts)
+            setData(() => sortedPosts)
+            console.log(sortedPosts);
         } else if (sortBy === "Oldest") {
             const sortedPosts = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            setData(sortedPosts)
+            setData(() => sortedPosts)
+            console.log(sortedPosts);
+
         } else if (sortBy === "Most Upvote") {
             const sortedPosts = data.sort((a, b) => (a.upVote < b.upVote) ? 1 : -1)
-            setData(sortedPosts)
+            setData(() => sortedPosts)
             console.log(sortedPosts);
         }
     }
 
-    const handleFilter = (event) => {
-        setFilterBy(event)
-        if (filterBy === "UI") {
-            const filteredData = data.filter(post => post.productTags === "UI")
-            setData(filteredData)
-        } else if (filterBy === "Bug") {
-            const filteredData = data.filter(post => post.productTags === "Bug")
-            setData(filteredData)
-        } else if (filterBy === "Feature") {
-            const filteredData = data.filter(post => post.productTags === "Feature")
-            setData(filteredData)
-        }
-    }
+
 
 
     return (
@@ -67,7 +52,7 @@ const Home = () => {
                 :
                 <div className="flex flex-col w-full   md:flex-row h-screen pt-8 max-w-screen-xl mx-auto ">
                     <div className="w-1/3 flex-1">
-                        <Sidebar handleFilter={handleFilter} />
+                        <Sidebar />
                     </div>
                     <div className="md:w-2/3 flex flex-col md:ml-3 ">
                         <Header props={data} handleSort={handleSort} />
