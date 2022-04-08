@@ -11,9 +11,11 @@ const initialState = {
 
 const baseURL = "http://localhost:5000"
 
+
 export const getPosts = createAsyncThunk("post/getAll", async (thunkAPI) => {
     try {
         const res = await axios.get(baseURL + "/post")
+        console.log(res)
         return res.data
     } catch (err) {
         const message = (err.response && err.response.data && err.response.data.message)

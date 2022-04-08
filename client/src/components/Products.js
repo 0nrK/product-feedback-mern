@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Product from './Product'
-import axios from 'axios'
 import { useContext } from 'react'
 import { FilterContext } from "../context/FilterContext"
+import { useSelector } from 'react-redux'
 
 const Products = ({ props }) => {
 
@@ -10,24 +10,20 @@ const Products = ({ props }) => {
 
 
     const { state } = useContext(FilterContext)
+    const postsData = useSelector(state => state.posts)
 
     useEffect(() => {
-
-        console.log(state)
-        const handleFilter = () => {
+        const handleFilter = async () => {
             if (state === "All") {
-                setData(() => props)
+                setData(() => postsData.data)
             } else if (state === "UI") {
-                setData(() => props)
-                const filteredData = data.filter(post => post.productTags === "UI")
+                const filteredData = await postsData.data.filter(post => post.productTags === "UI")
                 setData(() => filteredData)
             } else if (state === "Bug") {
-                setData(() => props)
-                const filteredData = data.filter(post => post.productTags === "Bug")
+                const filteredData = await postsData.data.filter(post => post.productTags === "Bug")
                 setData(() => filteredData)
             } else if (state === "Feature") {
-                setData(() => props)
-                const filteredData = data.filter(post => post.productTags === "Feature")
+                const filteredData = await postsData.data.filter(post => post.productTags === "Feature")
                 setData(() => filteredData)
             }
         }

@@ -1,6 +1,8 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { login } from '../redux/userSlice';
 
 const Login = () => {
@@ -11,7 +13,7 @@ const Login = () => {
     })
 
     const user = useSelector((state) => state.auth)
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
 
@@ -25,6 +27,12 @@ const Login = () => {
         dispatch(login(formData))
     }
 
+    useEffect(() => {
+
+        if (user) {
+            navigate("/")
+        }
+    }, [user])
     return (
         <div className="w-full h-full">
             <form onChange={handleChange} onSubmit={handleSubmit} className="rounded-lg mx-auto mt-48  bg-red-200 flex flex-col  justify-center w-1/4 h-5/6 p-12 " >

@@ -20,8 +20,8 @@ const Sidebar = () => {
         }
     } */
 
-    const { dispatch } = useContext(FilterContext)
 
+    const { state, dispatch } = useContext(FilterContext)
 
     return (
         <nav className="w-full">
@@ -39,7 +39,7 @@ const Sidebar = () => {
                 <div className="hidden md:space-y-3 md:block">
                     <div className="  shadow-xl h-50 p-7 space-x-5  bg-red-50 rounded-lg">
                         <ul className="flex flex-row flex-wrap">
-                            <li onClick={() => dispatch(filterShowAll())} className="cursor-pointer font-bold bg-blue-800 text-white m-3 rounded-md py-3 px-5 ">All</li>
+                            <li onClick={() => dispatch(filterShowAll())} className="cursor-pointer font-bold bg-blue-800 text-white m-3 rounded-md py-3 px-5" >All</li>
                             <li onClick={() => dispatch(filterUI())} className=" cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5">UI</li>
                             <li onClick={() => dispatch(filterBug())} className="cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5 ">Bug</li>
                             <li onClick={() => dispatch(filterFeature())} className="cursor-pointer hover:bg-blue-300 font-bold bg-blue-200 text-blue-600 m-3 rounded-md py-3 px-5 ">Feature</li>

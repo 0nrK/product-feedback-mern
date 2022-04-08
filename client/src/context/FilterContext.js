@@ -2,7 +2,7 @@ import React, { useState, createContext, useReducer } from 'react';
 import { filterReducer } from "./FilterReducer"
 
 
-const INITIAL_STATE = "ALL"
+const INITIAL_STATE = "All"
 
 export const FilterContext = createContext(INITIAL_STATE)
 

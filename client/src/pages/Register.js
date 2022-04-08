@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { register } from "../redux/userSlice"
 const Register = () => {
 
@@ -8,6 +10,8 @@ const Register = () => {
         password: "",
     })
 
+    const user = useSelector((state) => state.auth)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
 
@@ -24,7 +28,12 @@ const Register = () => {
         }
     }
 
+    useEffect(() => {
 
+        if (user) {
+            navigate("/")
+        }
+    }, [user])
 
     return (
         <div className="w-full h-full">

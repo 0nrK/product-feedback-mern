@@ -21,9 +21,7 @@ const App = () => {
   const posts = useSelector((state) => state.posts)
   const dispatch = useDispatch()
 
-  const something = useContext(FilterProvider)
 
-  console.log(something);
   useEffect(() => {
     dispatch(getPosts())
     setData(() => posts.data)
