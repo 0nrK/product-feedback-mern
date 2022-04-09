@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector } from "react-redux"
 import axios from 'axios'
 
 const Header = ({ props, handleSort }) => {
 
     const [sortChoice, setSortChoice] = useState("Most Upvotes")
     const [sortMenu, setSortMenu] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
     const [addMenu, setAddMenu] = useState(false)
     const [menuValues, setMenuValues] = useState({
         productName: "",
@@ -13,7 +15,7 @@ const Header = ({ props, handleSort }) => {
     })
 
 
-
+    const user = JSON.parse(localStorage.getItem("user"))
 
 
     function handleChange(event) {
@@ -21,10 +23,10 @@ const Header = ({ props, handleSort }) => {
         console.log(menuValues)
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
         setAddMenu(false)
-        axios.post("http://localhost:5000/addproduct", { menuValues })
+        axios.post("http://localhost:5000/post", user, { menuValues })
             .then((res) => console.log(res))
             .catch((err) => console.log(err))
         setMenuValues({
@@ -44,7 +46,7 @@ const Header = ({ props, handleSort }) => {
                     </svg>
                     <span >{props.length} Suggestions</span>
                 </div>
-                <div
+                {/* <div
                     onClick={() => setSortMenu(!sortMenu)}
                     className="flex flex-row items-center    group cursor-pointer space-x-3">
                     <span className="hidden md:flex">Sort By:</span>
@@ -55,10 +57,10 @@ const Header = ({ props, handleSort }) => {
                     </select>
 
 
-                </div>
-                <div className="">
+                </div> */}
+                {isAdmin && <div className="">
                     <button onClick={() => setAddMenu(!addMenu)} className="bg-pink-600 hover:bg-pink-500 px-6 py-3 flex md:px-6 md:py-3  rounded-lg text-white">+  Add Feedback</button>
-                </div>
+                </div>}
             </div>
             {addMenu &&
                 <div className="text-white -mt-3 bg-slate-700">

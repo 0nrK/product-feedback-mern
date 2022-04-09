@@ -8,8 +8,15 @@ const app = express()
 dotenv.config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.options('*', cors())
 
 app.use(cors())
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Method', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+})
 
 mongoose.connect(
     process.env.MONGO_URI,
@@ -43,6 +50,7 @@ app.post("/addcomment", async (req, res) => {
 
 app.use("/post", require("./routes/postRoute.js"))
 app.use("/auth", require("./routes/authRoute.js"))
+
 
 app.listen(5000, () => {
     console.log("server is running")

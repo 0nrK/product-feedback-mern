@@ -9,6 +9,14 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    isAdmin: {
+        type: String,
+        default: false,
+    },
+    profilePhoto: {
+        type: String,
+        default: "https://i.stack.imgur.com/l60Hf.png"
     }
 }, { timestamps: true })
 

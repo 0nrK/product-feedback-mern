@@ -19,7 +19,7 @@ const ProductPage = () => {
         async function getData() {
             const res = await axios.get("http://localhost:5000/post/" + id)
             setData(res.data)
-            console.log(data)
+            console.log(data.comments)
             setLoading(false)
         }
         getData()
@@ -52,8 +52,9 @@ const ProductPage = () => {
                         <h2 className="text-2xl p-5 font-bold border-b-2">{data.comments.length} Comments</h2>
 
                         <div>
-                            {data.comments.map((com) => {
-                                return <Comment props={data} />
+                            {data.comments.map((com, index) => {
+                                console.log(com)
+                                return <Comment key={index} postID={id} props={com} />
                             })}
 
                         </div>
