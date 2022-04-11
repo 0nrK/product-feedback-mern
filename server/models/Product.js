@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const Comment = require('./Comment')
+
+
 
 const ProductSchema = new mongoose.Schema({
     productName: {
@@ -17,9 +20,11 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    comments: {
-        type: Array
-    }
+    comments: [{
+        default: [],
+        ref: 'Comment',
+        type: mongoose.Schema.Types.ObjectId
+    }]
 },
     { timestamps: true }
 )

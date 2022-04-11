@@ -1,7 +1,8 @@
 const Product = require("../models/Product.js")
 const User = require("../models/User.js")
 const { v4: uuidv4 } = require('uuid');
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const Comment = require("../models/Comment.js");
 
 const getAll = async (req, res) => {
     try {
@@ -14,7 +15,7 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
     try {
-        const post = await Product.findById(req.params.id)
+        const post = await Product.findById(req.params.id).populate("comments")
         res.status(200).json(post)
     } catch (err) {
         res.status(500).json(err)
@@ -47,16 +48,21 @@ const deleteById = async (req, res) => {
 }
 
 const addComment = async (req, res) => {
-    console.log(req.body.user.token)
-    console.log(req)
     try {
-        const post = await Product.findById(req.params.id)
         const decodedToken = jwt.verify(req.body.user.token, process.env.JWT_SECRET)
         const user = await User.findById(decodedToken.id)
-        const comment = { id: uuidv4(), username: user.username, profilePhoto: user.profilePhoto || "https://i.stack.imgur.com/l60Hf.png", comment: req.body.text }
-        post.comments.push(comment)
+        const post = await Product.findById(req.body.id)
 
-        const updatedPost = await Product.findByIdAndUpdate(req.params.id, post, { new: true });
+        const comment = new Comment({
+            user: user.username,
+            photo: user.profilePhoto,
+            text: req.body.text
+        })
+
+        const savedComment = await comment.save()
+        post.comments.push(savedComment._id)
+        const updatedPost = await post.save()
+        console.log(updatedPost)
         res.status(200).json(updatedPost)
     } catch (err) {
         console.log(err)
@@ -64,13 +70,24 @@ const addComment = async (req, res) => {
 }
 
 const deleteComment = async (req, res) => {
+    console.log(req.params)
     try {
-        const post = await Product.findById(req.params.id)
-        const filteredComments = post.comments.filter((el) => (el.id !== req.params.commentID))
+        try {
+            const post = await Product.findById(req.params.id)
+            console.log("post:", post)
+            const updatedComments = await post.comments?.filter((com) => com !== req.params.commentID).save()
+            console.log(updatedComments)
+        } catch (err) {
+            console.log(err)
+        }
 
-        const updatedPost = await Product.findByIdAndUpdate(req.params.id, { ...rest, comments: filteredComments }, { new: true })
-        console.log(updatedPost)
-        res.status(200).json(updatedPost)
+        if (!post) {
+            return res.status(400).send("Post not found");
+        }
+
+        await Comment.findByIdAndDelete(req.params.commentId);
+
+        res.status(200).json("a")
     } catch (err) {
         res.status(500).json(err)
     }

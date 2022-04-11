@@ -7,7 +7,7 @@ router.get("/", getAll)
 router.get("/:id", getById)
 router.post("/", verifyIsAdmin, addPost)
 router.post("/:id/comment", addComment)
-router.delete("/:id/comment/:commentID", deleteComment)
+router.patch("/:id/comment/:commentID", deleteComment)
 router.delete("/:id", deleteById)
 
 

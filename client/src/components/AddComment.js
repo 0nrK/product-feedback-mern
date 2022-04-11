@@ -12,7 +12,7 @@ const AddComment = () => {
     const user = JSON.parse(localStorage.getItem("user"))
 
     console.log(user)
-
+    console.log(id)
 
     async function addComment(e) {
         await axios.post(`http://localhost:5000/post/${id}/comment`, { text, id, user })

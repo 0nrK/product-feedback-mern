@@ -28,7 +28,7 @@ const Product = ({ props }) => {
                 </div>
                 <div className="flex flex-row justify-center  items-center space-x-1">
                     <BsFillChatQuoteFill />
-                    <span className="text-l font-bold text-gray-700">{props.comments.length}</span>
+                    <span className="text-l font-bold text-gray-700">{props.comments?.length}</span>
                 </div>
             </div>
 
