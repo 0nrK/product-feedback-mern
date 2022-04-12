@@ -6,7 +6,6 @@ const Product = ({ props }) => {
 
     const [voted, setVoted] = useState(false)
 
-
     function upVote() {
         setVoted(() => !voted)
 

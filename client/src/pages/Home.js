@@ -4,20 +4,21 @@ import Product from '../components/Product'
 import Products from '../components/Products'
 import Sidebar from '../components/Sidebar'
 import axios from "axios"
+import { getPosts } from '../redux/postSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Home = () => {
 
     const [data, setData] = useState([])
 
+    const dispatch = useDispatch()
 
-    const postsData = useSelector(state => state.posts)
+    const posts = useSelector(state => state.posts)
 
 
     useEffect(() => {
-
-        setData(postsData.data)
-    }, [postsData])
+        dispatch(getPosts())
+    }, [])
 
     /*  const handleSort = (e) => {
          setSortBy(e.target.value)
@@ -42,7 +43,7 @@ const Home = () => {
 
     return (
         <>
-            {postsData.isLoading ?
+            {posts.isLoading ?
                 <h1 className="text-center text-4xl">Loading...</h1>
                 :
                 <div className="flex flex-col w-full   md:flex-row h-screen pt-8 max-w-screen-xl mx-auto ">
@@ -50,8 +51,8 @@ const Home = () => {
                         <Sidebar />
                     </div>
                     <div className="md:w-2/3 flex flex-col md:ml-3 ">
-                        <Header props={data} />
-                        <Products props={data} />
+                        <Header props={posts.data} />
+                        <Products props={posts.data} />
                     </div>
                 </div>
             }

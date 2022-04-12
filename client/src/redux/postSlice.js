@@ -15,7 +15,6 @@ const baseURL = "http://localhost:5000"
 export const getPosts = createAsyncThunk("post/getAll", async (thunkAPI) => {
     try {
         const res = await axios.get(baseURL + "/post")
-        console.log(res)
         return res.data
     } catch (err) {
         const message = (err.response && err.response.data && err.response.data.message)
@@ -29,10 +28,8 @@ export const getPosts = createAsyncThunk("post/getAll", async (thunkAPI) => {
 
 export const getPostById = createAsyncThunk("post/getById", async (id, thunkAPI) => {
     try {
-        axios.get(baseURL + `/post/:${id}`)
-            .then(res => {
-                return res.data
-            })
+        const res = await axios.get(baseURL + `/post/${id}`)
+        return res.data
     } catch (err) {
         const message = (err.response && err.response.data && err.response.data.message)
             || err.message
@@ -57,6 +54,35 @@ export const createPost = createAsyncThunk("post/add", async (postData, thunkAPI
     }
 
 })
+
+export const addComment = createAsyncThunk("post/comment/add", async (commentData, thunkAPI) => {
+    try {
+        const res = await axios.post(baseURL + `/post/${commentData.postID}/comment`, { commentData })
+        return res.data
+    } catch (err) {
+        const message = (err.response && err.response.data && err.response.data.message)
+            || err.message
+            || err.toString()
+
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const deleteComment = createAsyncThunk("post/comment/delete", async (commentData, thunkAPI) => {
+
+    try {
+        const res = await axios.delete(baseURL + `/post/${commentData.postID}/comment/${commentData.commentID}`)
+        return res.data
+    } catch (err) {
+        const message = (err.response && err.response.data && err.response.data.message)
+            || err.message
+            || err.toString()
+
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+
 
 
 const postSlice = createSlice({
@@ -92,20 +118,46 @@ const postSlice = createSlice({
                 state.message = action.payload
             })
             .addCase(getPostById.pending, (state, action) => {
-                console.log(state)
                 state.isLoading = true
             })
             .addCase(getPostById.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.data = state.data.filter(
-                    (post) => post._id !== action.payload.id
-                )
+                state.data = action.payload
             })
             .addCase(getPostById.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
+            })
+            .addCase(addComment.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(addComment.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                console.log("b.:", action.payload);
+                state.data = action.payload
+
+            })
+            .addCase(addComment.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
+            .addCase(deleteComment.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(deleteComment.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                console.log(action.payload);
+                state.data = action.payload
+            })
+            .addCase(deleteComment.rejected, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = false
+                state.data = action.payload
             })
     }
 })

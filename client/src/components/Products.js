@@ -10,36 +10,33 @@ const Products = ({ props }) => {
 
 
     const { state } = useContext(FilterContext)
-    const postsData = useSelector(state => state.posts)
+    const posts = useSelector(state => state.posts)
 
     useEffect(() => {
-        const handleFilter = async () => {
-            if (state === "All") {
-                setData(() => postsData.data)
-            } else if (state === "UI") {
-                const filteredData = await postsData.data.filter(post => post.productTags === "UI")
-                setData(() => filteredData)
-            } else if (state === "Bug") {
-                const filteredData = await postsData.data.filter(post => post.productTags === "Bug")
-                setData(() => filteredData)
-            } else if (state === "Feature") {
-                const filteredData = await postsData.data.filter(post => post.productTags === "Feature")
-                setData(() => filteredData)
-            }
-        }
 
-        handleFilter()
+        if (state === "All") {
+            setData(() => posts.data)
+        } else {
+            const filteredData = props.filter((el) => el.productTags === state)
+            setData(() => filteredData)
+        }
     }, [state])
 
+
+    console.log("p2", posts);
     return (
         <div className="flex flex-col w-full px-8 md:px-0 items-center  space-y-5 pb-5">
-            {data.map((item) => (
+            {posts.isLoading ? <span>Loading...</span> :
 
-                <div className="w-full" key={item._id}>
-                    <Product props={item} />
-                </div>
+                data.map((item) => (
 
-            ))}
+                    <div className="w-full" key={item._id}>
+                        <Product props={item} />
+                    </div>
+
+                ))
+
+            }
         </div >
     )
 }

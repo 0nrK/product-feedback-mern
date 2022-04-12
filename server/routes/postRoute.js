@@ -6,9 +6,11 @@ const router = express.Router()
 router.get("/", getAll)
 router.get("/:id", getById)
 router.post("/", verifyIsAdmin, addPost)
-router.post("/:id/comment", addComment)
-router.patch("/:id/comment/:commentID", deleteComment)
 router.delete("/:id", deleteById)
+
+//comments
+router.post("/:id/comment", addComment)
+router.delete("/:id/comment/:commentID", deleteComment)
 
 
 module.exports = router
