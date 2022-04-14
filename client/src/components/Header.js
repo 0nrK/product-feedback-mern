@@ -6,7 +6,7 @@ const Header = ({ props, handleSort }) => {
 
     const [sortChoice, setSortChoice] = useState("Most Upvotes")
     const [sortMenu, setSortMenu] = useState(false)
-    const [isAdmin, setIsAdmin] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(true)
     const [addMenu, setAddMenu] = useState(false)
     const [menuValues, setMenuValues] = useState({
         productName: "",
@@ -26,7 +26,7 @@ const Header = ({ props, handleSort }) => {
     async function handleSubmit(event) {
         event.preventDefault()
         setAddMenu(false)
-        axios.post("http://localhost:5000/post", user, { menuValues })
+        axios.post("http://localhost:5000/post", { menuValues }, user)
             .then((res) => console.log(res))
             .catch((err) => console.log(err))
         setMenuValues({

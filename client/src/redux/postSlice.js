@@ -108,6 +108,7 @@ const postSlice = createSlice({
                 state.isLoading = true
             })
             .addCase(getPosts.fulfilled, (state, action) => {
+                console.log(state);
                 state.isLoading = false
                 state.isSuccess = true
                 state.data = action.payload
@@ -123,6 +124,7 @@ const postSlice = createSlice({
             .addCase(getPostById.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
+                console.log("p", action.payload);
                 state.data = action.payload
             })
             .addCase(getPostById.rejected, (state, action) => {

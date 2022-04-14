@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const Comment = require('./Comment')
-
+const User = require('./User')
 
 
 const ProductSchema = new mongoose.Schema({
@@ -21,9 +20,11 @@ const ProductSchema = new mongoose.Schema({
         default: 0
     },
     comments: [{
-        default: [],
-        ref: 'Comment',
-        type: mongoose.Schema.Types.ObjectId
+        text: String,
+        user_id: {
+            type: mongoose.Types.ObjectId,
+            ref: "User"
+        }
     }]
 },
     { timestamps: true }

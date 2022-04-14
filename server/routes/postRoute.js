@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get("/", getAll)
 router.get("/:id", getById)
-router.post("/", verifyIsAdmin, addPost)
+router.post("/", addPost)
 router.delete("/:id", deleteById)
 
 //comments

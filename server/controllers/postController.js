@@ -2,7 +2,8 @@ const Product = require("../models/Product.js")
 const User = require("../models/User.js")
 const { v4: uuidv4 } = require('uuid');
 const jwt = require("jsonwebtoken");
-const Comment = require("../models/Comment.js");
+const mongoose = require("mongoose")
+
 
 const getAll = async (req, res) => {
     try {
@@ -14,9 +15,9 @@ const getAll = async (req, res) => {
 }
 
 const getById = async (req, res) => {
-    console.log("a.");
     try {
-        const post = await Product.findById(req.params.id).populate("comments")
+        const post = await Product.findById(req.params.id)
+            .populate({ path: "comments", populate: { path: "user_id" } })
         res.status(200).json(post)
     } catch (err) {
         res.status(500).json(err)
@@ -24,6 +25,7 @@ const getById = async (req, res) => {
 }
 
 const addPost = async (req, res) => {
+    console.log(req.body);
     try {
 
         const newProduct = new Product({
@@ -41,7 +43,7 @@ const addPost = async (req, res) => {
 
 const deleteById = async (req, res) => {
     try {
-        const product = Product.findById(req.params.id)
+        const product = Product.findById(req.params.id).populate({ path: "comments", populate: { path: "user_id" } })
         await product.deleteOne()
     } catch (err) {
         res.status(500).json(err)
@@ -49,43 +51,50 @@ const deleteById = async (req, res) => {
 }
 
 const addComment = async (req, res) => {
-    const { postID, text, user: userReq } = req.body.commentData
-
+    const { postID, text, user } = req.body.commentData
     try {
-        const decodedToken = jwt.verify(userReq.token, process.env.JWT_SECRET)
-        const user = await User.findById(decodedToken.id)
-        const post = await Product.findById(postID)
+        const decodedToken = await jwt.verify(user.token, process.env.JWT_SECRET)
+        Product.findById(postID)
+            .then((mainPost) => {
+                if (!mainPost) return res.status(404).json("Post could not found")
+                const comment = {
+                    text,
+                    user_id: decodedToken.id.toString()
+                }
+                mainPost.comments.push(comment)
+                mainPost.save()
+                    .then((updatedPost) => {
+                        updatedPost.populate({ path: "comments", populate: { path: "user_id" } })
+                            .then((finalPost) => {
+                                return res.status(200).send(finalPost)
+                            })
+                    })
+                    .catch((err) => console.log(err))
+            })
 
-        const comment = new Comment({
-            user: user.username,
-            photo: user.profilePhoto,
-            text: text
-        })
 
-        const savedComment = await comment.save()
-        post.comments.push(savedComment._id)
-        const updatedPost = await post.save()
-        console.log(updatedPost);
-        res.status(200).json("basarili")
     } catch (err) {
-        console.log(err)
+        res.status(500).json(err)
     }
 }
 
 const deleteComment = async (req, res) => {
-    console.log(req.params)
+
 
     try {
-        const post = await Product.findByIdAndUpdate(req.params.id,
-            { $pull: { "comments": req.params.commentID } }
-        )
-
-
-        if (!post) {
-            return res.status(400).send("Post not found");
-        }
-        await post.save()
-        res.status(200).json(post)
+        Product.findById(req.params.id)
+            .then((mainPost) => {
+                if (!mainPost) return res.status(404).json("Post Not Found!")
+                mainPost.comments = mainPost.comments.filter((comment) => comment._id?.toString() !== req.params.commentID)
+                mainPost.save()
+                    .then((updatedPost) => {
+                        updatedPost.populate({ path: "comments", populate: { path: "user_id" } })
+                            .then((finalPost) => {
+                                return res.status(200).send(finalPost)
+                            })
+                    })
+                    .catch((err) => console.error(err))
+            })
     } catch (err) {
         res.status(500).json(err)
     }

@@ -28,7 +28,7 @@ const ProductPage = () => {
         <>
             {posts.isLoading ? <span>Loading...</span>
                 :
-                <div className="flex flex-col w-full px-5 pt-20 md:w-1/2 m-auto ">
+                <div className="flex flex-col w-full px-5 pt-20 lg:w-1/2  m-auto ">
                     <div className="flex flex-row  bg-transparent border-none justify-between w-full items-center">
                         <Link to="/">
                             <div className="flex flex-row cursor-pointer space-x-3">
