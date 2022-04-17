@@ -24,7 +24,6 @@ const Products = ({ props }) => {
     }, [state])
 
 
-    console.log("p2", data);
     return (
         <div className="flex flex-col w-full px-8 md:px-0 items-center  space-y-5 pb-5">
             {posts.isLoading ? <span>Loading...</span> :

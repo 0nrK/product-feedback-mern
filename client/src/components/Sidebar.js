@@ -6,19 +6,6 @@ import { FilterContext } from '../context/FilterContext'
 const Sidebar = () => {
 
 
-    /* const handleFilter = (event) => {
-        setFilterBy(event)
-        if (filterBy === "UI") {
-            const filteredData = data.filter(post => post.productTags === "UI")
-            setData(() => filteredData)
-        } else if (filterBy === "Bug") {
-            const filteredData = data.filter(post => post.productTags === "Bug")
-            setData(() => filteredData)
-        } else if (filterBy === "Feature") {
-            const filteredData = data.filter(post => post.productTags === "Feature")
-            setData(() => filteredData)
-        }
-    } */
 
 
     const { state, dispatch } = useContext(FilterContext)

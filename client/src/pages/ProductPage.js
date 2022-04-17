@@ -4,7 +4,7 @@ import Comment from '../components/Comment'
 import Header from '../components/Header'
 import Product from '../components/Product'
 import Sidebar from "../components/Sidebar"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, Navigate } from "react-router-dom"
 import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux'
 import { getPostById } from '../redux/postSlice'
@@ -17,8 +17,13 @@ const ProductPage = () => {
     const dispatch = useDispatch()
 
     const posts = useSelector(state => state.posts)
+    const auth = useSelector(state => state.posts)
+
 
     useEffect(() => {
+        /* if (!auth.isLoggedIn) {
+            return <Navigate to="/register" replace />;
+        } */
         dispatch(getPostById(id))
             .then((res) => console.log(res))
     }, [id])

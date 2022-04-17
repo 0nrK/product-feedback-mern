@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar'
 import axios from "axios"
 import { getPosts } from '../redux/postSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { Navigate } from 'react-router'
 
 const Home = () => {
 
@@ -15,30 +16,13 @@ const Home = () => {
 
     const posts = useSelector(state => state.posts)
 
-
     useEffect(() => {
+
         dispatch(getPosts())
     }, [])
 
-    /*  const handleSort = (e) => {
-         setSortBy(e.target.value)
-         if (sortBy === "Newest") {
-             const sortedPosts = data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-             setData(() => sortedPosts)
-             console.log(sortedPosts);
-         } else if (sortBy === "Oldest") {
-             const sortedPosts = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-             setData(() => sortedPosts)
-             console.log(sortedPosts);
- 
-         } else if (sortBy === "Most Upvote") {
-             const sortedPosts = data.sort((a, b) => (a.upVote < b.upVote) ? 1 : -1)
-             setData(() => sortedPosts)
-             console.log(sortedPosts);
-         }
-     }
- 
-  */
+
+
 
 
     return (

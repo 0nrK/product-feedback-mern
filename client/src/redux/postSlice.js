@@ -124,7 +124,6 @@ const postSlice = createSlice({
             .addCase(getPostById.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                console.log("p", action.payload);
                 state.data = action.payload
             })
             .addCase(getPostById.rejected, (state, action) => {
@@ -138,7 +137,6 @@ const postSlice = createSlice({
             .addCase(addComment.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                console.log("b.:", action.payload);
                 state.data = action.payload
 
             })

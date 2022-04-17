@@ -13,6 +13,7 @@ const login = async ({ username, password }) => {
         username, password
     })
         .then((res) => {
+
             if (res.data.token)
                 localStorage.setItem("user", JSON.stringify(res.data))
         })
