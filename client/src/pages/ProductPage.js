@@ -35,7 +35,7 @@ const ProductPage = () => {
                 :
                 <div className="flex flex-col w-full px-5 pt-20 lg:w-1/2  m-auto ">
                     <div className="flex flex-row  bg-transparent border-none justify-between w-full items-center">
-                        <Link to="/">
+                        <Link to="/home">
                             <div className="flex flex-row cursor-pointer space-x-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />

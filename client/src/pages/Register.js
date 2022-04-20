@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import { register } from "../redux/userSlice"
-const Register = ({ user }) => {
+const Register = () => {
 
     const [formData, setFormData] = useState({
         username: "",
@@ -17,6 +17,7 @@ const Register = ({ user }) => {
     const dispatch = useDispatch()
 
 
+    const user = JSON.parse(localStorage.getItem("user"))
     function handleChange(e) {
         setFormData((values) => ({ ...values, [e.target.name]: e.target.value }))
     }
@@ -26,19 +27,14 @@ const Register = ({ user }) => {
         setIsDisabled(true)
         if (formData.password === formData.password2) {
             dispatch(register(formData))
-                .then((res) => console.log(res))
         }
     }
 
-    useEffect(() => {
-        if (auth.isLoggedIn) {
-            navigate("/")
-        }
-    }, [])
+
 
     return (
         <div className="w-full h-full">
-            <form onChange={handleChange} className="rounded-lg mx-auto mt-48  bg-red-200 flex flex-col  justify-center w-1/4 h-5/6 p-12 " >
+            <form onChange={handleChange} className="rounded-lg mx-auto mt-48  bg-red-200 flex flex-col  min-w-min justify-center w-1/4 h-5/6 p-12 " >
                 <h1 className="text-4xl text-center  mb-4 text-blue-500 ">Sign Up</h1>
                 <input className="p-3 mt-4 focus:outline-blue-400 rounded-lg" name="username" type="text" placeholder="Username" />
                 <input className="p-3 mt-4 focus:outline-blue-400 rounded-lg" name="password" type="password" placeholder="Password" />

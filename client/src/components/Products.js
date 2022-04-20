@@ -29,11 +29,9 @@ const Products = ({ props }) => {
             {posts.isLoading ? <span>Loading...</span> :
 
                 data?.map((item) => (
-
-                    <div className="w-full" key={item._id}>
+                    <div className="w-full" key={item._id} >
                         <Product props={item} />
                     </div>
-
                 ))
 
             }

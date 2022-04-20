@@ -22,9 +22,6 @@ const Home = () => {
     }, [])
 
 
-
-
-
     return (
         <>
             {posts.isLoading ?

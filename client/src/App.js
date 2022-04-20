@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import ProductPage from './pages/ProductPage';
 import { getPosts } from './redux/postSlice';
+import { useNavigate } from "react-router"
 import axios from 'axios';
 import { useState } from 'react';
 import { FilterProvider } from "./context/FilterContext"
@@ -19,6 +20,7 @@ const App = () => {
   const [data, setData] = useState([])
   const posts = useSelector((state) => state.posts)
   const user = useSelector((state) => state.auth)
+
   const dispatch = useDispatch()
 
 
@@ -32,10 +34,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={user.isLoggedIn ? <Home /> : <Navigate to="/register" />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route exact path="/home" element={user.isLoggedIn ? <Home /> : <Navigate to="/register" />} />
         <Route path="/product/:id" element={user.isLoggedIn ? <ProductPage user={user} /> : <Navigate to="/register" />} />
-        <Route path="/register" element={<Register user={user} />} />
-        <Route path="/login" element={<Login user={user} />} />
+        <Route path="/register" element={user.isLoggedIn ? <Navigate to="/home" /> : <Register user={user} />} />
+        <Route path="/login" element={user.isLoggedIn ? <Navigate to="/home" /> : <Login user={user} />} />
       </Routes>
     </BrowserRouter>
   )

@@ -9,15 +9,13 @@ const register = async ({ username, password }) => {
 }
 
 const login = async ({ username, password }) => {
-    return await axios.post(baseURL + "/login", {
-        username, password
-    })
-        .then((res) => {
-
-            if (res.data.token)
-                localStorage.setItem("user", JSON.stringify(res.data))
-        })
-        .catch((err) => console.log(err))
+    try {
+        const res = await axios.post(baseURL + "/login", { username, password })
+        if (res.data.token) localStorage.setItem("user", JSON.stringify(res.data))
+        return res
+    } catch (err) {
+        return err
+    }
 }
 
 const logout = async () => {
