@@ -41,7 +41,6 @@ const Header = ({ props, handleSort }) => {
 
     function handleLogout(e) {
         setInProcess(() => true)
-        console.log(e.currentTarget);
         dispatch(logout())
         setInProcess(() => false)
 
