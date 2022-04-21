@@ -25,7 +25,6 @@ const getById = async (req, res) => {
 }
 
 const addPost = async (req, res) => {
-    console.log(req.body);
     try {
 
         const newProduct = new Product({

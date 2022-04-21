@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt")
 const User = require("../models/User.js")
 
 const registerUser = async (req, res) => {
-    console.log(req.body)
     if (!req.body.username || !req.body.password) {
         res.status(400).json("Please add all fields")
     }
@@ -18,7 +17,6 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
     const newUser = await User.create({ username: req.body.username, password: hashedPassword })
-    console.log(newUser);
     if (newUser) {
         res.status(201).json({
             username: newUser.username,
@@ -37,7 +35,6 @@ const loginUser = async (req, res) => {
 
     const user = await User.findOne({ username: req.body.username })
     const comparedPw = await bcrypt.compare(req.body.password, user.password)
-    console.log(user);
     if (user && comparedPw) {
         res.status(200).send({
             username: user.username,
