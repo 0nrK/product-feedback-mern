@@ -2,21 +2,5 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": {
-    "node": "16.x"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.2",
-    "mongoose": "^6.1.5",
-    "nodemon": "^2.0.15",
-    "uuid": "^8.3.2"
-  }
+  "license": "MIT"
 }
