@@ -2,6 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "nodemon index.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
