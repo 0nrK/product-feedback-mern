@@ -36,7 +36,6 @@ const Product = ({ props }) => {
                     <div>
                         <h1 className="font-bold text-xl">{props.productName}</h1>
                         <p className="text-gray-400 my-5 break-all text-base">{props.productDesc}</p>
-
                     </div>
                 </Link>
                 <span className="bg-blue-100 text-xs w-min hover:bg-blue-200 cursor-pointer text-blue-700 font-bold rounded-md py-3 px-5 ">{props.productTags}</span>

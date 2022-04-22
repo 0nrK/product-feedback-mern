@@ -26,10 +26,10 @@ const Sidebar = () => {
                 <div className="hidden md:space-y-3 md:block">
                     <div className="  shadow-xl h-50 p-7 space-x-5  bg-red-50 rounded-lg">
                         <ul className="flex flex-row flex-wrap">
-                            <li onClick={() => dispatch(filterShowAll())} className={`${state === "All" ? "bg-blue-800" : "bg-blue-300"} cursor-pointer font-bold  text-white m-3 rounded-md py-3 px-5`}>All</li>
-                            <li onClick={() => dispatch(filterUI())} className={`${state === "UI" ? "bg-blue-800" : "bg-blue-300"} cursor-pointer font-bold  text-white m-3 rounded-md py-3 px-5`}>UI</li>
-                            <li onClick={() => dispatch(filterBug())} className={`${state === "Bug" ? "bg-blue-800" : "bg-blue-300"} cursor-pointer font-bold  text-white m-3 rounded-md py-3 px-5`}>Bug</li>
-                            <li onClick={() => dispatch(filterFeature())} className={`${state === "Feature" ? "bg-blue-800" : "bg-blue-300"} cursor-pointer font-bold  text-white m-3 rounded-md py-3 px-5`}>Feature</li>
+                            <li onClick={() => dispatch(filterShowAll())} className={`${state === "All" ? "bg-blue-800 text-white" : "bg-blue-100 text-blue-700"} cursor-pointer font-bold   m-3 rounded-md py-3 px-5`}>All</li>
+                            <li onClick={() => dispatch(filterUI())} className={`${state === "UI" ? "bg-blue-800 text-white" : "bg-blue-100 text-blue-700"} cursor-pointer font-bold   m-3 rounded-md py-3 px-5`}>UI</li>
+                            <li onClick={() => dispatch(filterBug())} className={`${state === "Bug" ? "bg-blue-800 text-white" : "bg-blue-100 text-blue-700"} cursor-pointer font-bold   m-3 rounded-md py-3 px-5`}>Bug</li>
+                            <li onClick={() => dispatch(filterFeature())} className={`${state === "Feature" ? "bg-blue-800 text-white" : "bg-blue-100 text-blue-700"} cursor-pointer font-bold   m-3 rounded-md py-3 px-5`}>Feature</li>
                         </ul>
                     </div>
                     <div className=" bg-red-50 shadow-xl rounded-lg py-8 px-6">

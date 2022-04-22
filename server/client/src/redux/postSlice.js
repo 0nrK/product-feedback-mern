@@ -9,7 +9,7 @@ const initialState = {
     message: ""
 }
 
-const baseURL = "http://localhost:5000"
+const baseURL = ""
 
 
 export const getPosts = createAsyncThunk("post/getAll", async (thunkAPI) => {

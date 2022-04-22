@@ -31,7 +31,7 @@ const Comment = ({ postID, props }) => {
         body.style.overflow = isModalOpened ? 'hidden' : 'auto';
     }, [isModalOpened])
     return (
-        <div className="space-y-3  pt-8 ">
+        <div className="space-y-3  pt-4 ">
             <div className="flex flex-col mb-8">
                 <div className="flex flex-row justify-between items-center px-5 space-x-12">
                     <div className="flex flex-row space-x-5 ">

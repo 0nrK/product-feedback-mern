@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Product = require('./models/Product');
 const cors = require('cors');
-
+const path = require('path');
 const app = express()
 dotenv.config()
 app.use(express.json())
@@ -51,6 +51,13 @@ app.post("/addcomment", async (req, res) => {
 
 app.use("/post", require("./routes/postRoute.js"))
 app.use("/auth", require("./routes/authRoute.js"))
+
+app.use(express.static(path.join(__dirname, "client", "build")))
+
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 
 app.listen(5000, () => {
