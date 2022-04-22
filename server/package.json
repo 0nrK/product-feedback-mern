@@ -6,7 +6,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "license": "MIT",
