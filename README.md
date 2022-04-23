@@ -1,11 +1,35 @@
 # Product Feedback App
 
+
+You can view the site here
+[Click Me](https://mern-produc-feedback.herokuapp.com/login)
+
+username: kullanici1
+password: kullanici1
+
 ## Built With
 
 - React.js
 - Tailwind CSS
 - Node.js 
-- Express for backend
+- Express 
+- MongoDB
+- Redux Toolkit
+- Redux Thunk 
+- JWT
+- Axios
+
+
+## ToDo's
+- [x] Login/Register
+- [x] Filter by type
+- [x] Add comment functionality 
+- [x] Responsive design 
+- [x] Delete comment functionality
+- [ ] Admin page
+- [ ] Edit post functionality
+- [ ] Like post functionality
+- [ ] Change user info's functionality
 
 
 ## In the project directory, you can run:
